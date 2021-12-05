@@ -15,10 +15,13 @@ class CustomerController {
     val customers = mutableListOf<CustomerModel>()
 
     @GetMapping()
-    fun getAll(): ResponseEntity<List<CustomerModel>> {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(customers)
+    fun getAll(@RequestParam name: String?): List<CustomerModel> {
+        name?.let {
+            return customers.filter {
+                it.name.contains(name, true)
+            }
+        }
+        return customers
     }
 
     @GetMapping("/{id}")
@@ -54,7 +57,7 @@ class CustomerController {
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String): ResponseEntity<Void> {
-        customers.removeIf{it.id == id};
+        customers.removeIf { it.id == id };
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
