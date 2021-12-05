@@ -52,6 +52,15 @@ class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: String): ResponseEntity<Void> {
+        customers.removeIf{it.id == id};
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build()
+    }
+
 
     private fun generationId(): String {
         var id = if (customers.isEmpty()) {
