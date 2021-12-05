@@ -12,7 +12,7 @@ class CustomerService {
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
             return customers.filter {
-                it.name.contains(name, true)
+                it.name!!.contains(name, true)
             }
         }
         return customers
@@ -23,16 +23,15 @@ class CustomerService {
     }
 
 
-    fun update(id: String, request: PutCustomerDTO) {
+    fun update(id: String, request: CustomerModel) {
         customers.filter { it.id == id }.first().let {
             it.email = request.email
         }
     }
 
-    fun create(request: PostCustomerDTO) {
+    fun create(request: CustomerModel) {
         println(request)
-        var id = generationId()
-        customers.add(CustomerModel(id, request.name, request.email))
+        customers.add(CustomerModel(generationId(), request.name, request.email))
     }
 
 
@@ -44,7 +43,7 @@ class CustomerService {
         var id = if (customers.isEmpty()) {
             1
         } else {
-            customers.last().id.toInt() + 1
+            customers.last().id!!.toInt() + 1
         }
         return id.toString()
     }
