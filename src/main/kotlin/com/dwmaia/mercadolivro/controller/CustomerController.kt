@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("custumers")
-class CustomerController(
-        val customerService: CustomerService
-) {
+class CustomerController(  val customerService: CustomerService ) {
 
     @PostMapping()
     fun create(@RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
@@ -51,6 +49,5 @@ class CustomerController(
                 .status(HttpStatus.NO_CONTENT)
                 .build()
     }
-
 
 }

@@ -3,10 +3,11 @@ package com.dwmaia.mercadolivro.service
 import com.dwmaia.mercadolivro.controller.request.PostCustomerDTO
 import com.dwmaia.mercadolivro.controller.request.PutCustomerDTO
 import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.repository.CostumerRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerService {
+class CustomerService ( val repository : CostumerRepository ) {
     val customers = mutableListOf<CustomerModel>()
 
     fun getAll(name: String?): List<CustomerModel> {
@@ -30,11 +31,11 @@ class CustomerService {
     }
 
     fun create(request: CustomerModel) {
-        println(request)
-        customers.add( CustomerModel(
-                name = request.name,
-                email = request.email
-        ) )
+    try {
+      repository.save(request);
+    }catch (e: Exception){
+        throw java.lang.RuntimeException()
+     }
     }
 
 
