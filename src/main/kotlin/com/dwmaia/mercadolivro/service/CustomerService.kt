@@ -20,7 +20,7 @@ class CustomerService ( val repository : CostumerRepository ) {
     }
 
     fun getCustomer(id: Int): CustomerModel {
-        return customers.filter { it.id == id }.first()
+        return repository.findById(id).orElseThrow();
     }
 
 
@@ -43,14 +43,5 @@ class CustomerService ( val repository : CostumerRepository ) {
         customers.removeIf { it.id == id };
     }
 
-  /*  private fun generationId(): Int {
-        var id = if (customers.isEmpty()) {
-            1
-        } else {
-            customers.last().id!!.toInt() + 1
-        }
-        return id
-    }
-*/
 
 }
