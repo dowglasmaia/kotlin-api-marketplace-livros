@@ -7,4 +7,4 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db_mercadolivro?createDatabaseIfNotExist=true
     username: root
-    password:
+    password: 2522

@@ -10,6 +10,6 @@ fun PostCustomerDTO.toCustomerModel(): CustomerModel {
     return CustomerModel(name = name, email = email)
 }
 
-fun PutCustomerDTO.toCustomerModel(): CustomerModel {
-    return CustomerModel( email = email)
+fun PutCustomerDTO.toCustomerModel(id: Int): CustomerModel {
+    return CustomerModel( id= id, name= this.name ,email = this.email)
 }
