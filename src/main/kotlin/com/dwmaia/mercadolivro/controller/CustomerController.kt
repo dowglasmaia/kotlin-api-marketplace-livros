@@ -28,7 +28,7 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: String): ResponseEntity<CustomerModel> {
+    fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerModel> {
         val response = customerService.getCustomer(id)
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -36,7 +36,7 @@ class CustomerController(
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: String, @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
+    fun update(@PathVariable id: Int, @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
         customerService.update(id, request.toCustomerModel());
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
@@ -45,7 +45,7 @@ class CustomerController(
 
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String): ResponseEntity<Void> {
+    fun delete(@PathVariable id: Int): ResponseEntity<Void> {
         customerService.delete(id)
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

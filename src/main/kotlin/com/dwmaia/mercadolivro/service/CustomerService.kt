@@ -18,12 +18,12 @@ class CustomerService {
         return customers
     }
 
-    fun getCustomer(id: String): CustomerModel {
+    fun getCustomer(id: Int): CustomerModel {
         return customers.filter { it.id == id }.first()
     }
 
 
-    fun update(id: String, request: CustomerModel) {
+    fun update(id: Int, request: CustomerModel) {
         customers.filter { it.id == id }.first().let {
             it.email = request.email
         }
@@ -31,22 +31,25 @@ class CustomerService {
 
     fun create(request: CustomerModel) {
         println(request)
-        customers.add(CustomerModel(generationId(), request.name, request.email))
+        customers.add( CustomerModel(
+                name = request.name,
+                email = request.email
+        ) )
     }
 
 
-    fun delete(id: String) {
+    fun delete(id: Int) {
         customers.removeIf { it.id == id };
     }
 
-    private fun generationId(): String {
+  /*  private fun generationId(): Int {
         var id = if (customers.isEmpty()) {
             1
         } else {
             customers.last().id!!.toInt() + 1
         }
-        return id.toString()
+        return id
     }
-
+*/
 
 }
