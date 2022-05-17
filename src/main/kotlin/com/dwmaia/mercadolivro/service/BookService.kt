@@ -40,10 +40,9 @@ class BookService(val repository: BookRepository) {
     }
 
     fun delete(id: Int) {
-        if (!repository.existsById(id)) {
-            throw RuntimeException("Book Not Found ")
-        }
-        repository.deleteById(id)
+        val book = findById(id)
+        book.status = "CANCELADO";
+        repository.save(book)
     }
 
 }
