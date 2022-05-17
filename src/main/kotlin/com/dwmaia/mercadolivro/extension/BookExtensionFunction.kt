@@ -15,13 +15,13 @@ fun PostBookRequestDTO.toBookModel(customer: CustomerModel): BookModel {
     )
 }
 
-fun PutBookRequestDTO.toBookModel(book:BookModel): BookModel {
+fun PutBookRequestDTO.toBookModel(previousValue:BookModel): BookModel {
     return BookModel(
-            id = book.id,
-            name = this.name,
+            id = previousValue.id,
+            name = this.name ?: previousValue.name,  // if ternario KOTLIN
             price = this.price,
-            status = book.status,
-            customer = book.customer
+            status = previousValue.status,
+            customer = previousValue.customer
     )
 }
 
