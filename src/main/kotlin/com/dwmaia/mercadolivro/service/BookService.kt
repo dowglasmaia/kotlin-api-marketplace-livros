@@ -35,14 +35,14 @@ class BookService(val repository: BookRepository) {
     }
 
     fun findAllByStatus(status: String): List<BookModel> {
-        var list = repository.findByStatus(status).toList();
+        val list = repository.findByStatus(status).toList();
         return list;
     }
 
     fun delete(id: Int) {
         val book = findById(id)
         book.status = "CANCELADO";
-        repository.save(book)
+        this.update(book)
     }
 
 }

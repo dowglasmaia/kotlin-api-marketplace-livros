@@ -28,26 +28,26 @@ class BookController(
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Int, @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
-        var book = bookService.findById(id);
+        val book = bookService.findById(id);
         bookService.update(request.toBookModel(book));
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Int): ResponseEntity<BookModel> {
-        var book = bookService.findById(id);
+        val book = bookService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(book);
     }
 
     @GetMapping()
     fun getAll(@RequestParam name: String?): ResponseEntity<List<BookModel>> {
-        var list = bookService.findAll(name);
+        val list = bookService.findAll(name);
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
     @GetMapping("/status")
     fun getAllByStatus(@RequestParam status: String): ResponseEntity<List<BookModel>> {
-        var list = bookService.findAllByStatus(status);
+        val list = bookService.findAllByStatus(status);
         return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
