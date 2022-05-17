@@ -1,7 +1,7 @@
 package com.dwmaia.mercadolivro.controller
 
-import com.dwmaia.mercadolivro.controller.request.PostCustomerDTO
-import com.dwmaia.mercadolivro.controller.request.PutCustomerDTO
+import com.dwmaia.mercadolivro.controller.request.customer.PostCustomerDTO
+import com.dwmaia.mercadolivro.controller.request.customer.PutCustomerDTO
 import com.dwmaia.mercadolivro.extension.toCustomerModel
 import com.dwmaia.mercadolivro.model.CustomerModel
 import com.dwmaia.mercadolivro.service.CustomerService
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("custumers")
-class CustomerController(  val customerService: CustomerService ) {
+class CustomerController(val customerService: CustomerService) {
 
     @PostMapping()
     fun create(@RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
@@ -27,7 +27,7 @@ class CustomerController(  val customerService: CustomerService ) {
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerModel> {
-        val response = customerService.getCustomer(id)
+        val response = customerService.getById(id)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response)

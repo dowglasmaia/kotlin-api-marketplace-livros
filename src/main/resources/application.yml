@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: api-book
   jpa:
     hibernate:
       ddl-auto: update
