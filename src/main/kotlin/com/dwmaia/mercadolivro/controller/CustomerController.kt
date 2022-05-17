@@ -8,6 +8,8 @@ import com.dwmaia.mercadolivro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import java.net.URI
 
 @RestController
 @RequestMapping("custumers")
@@ -15,8 +17,12 @@ class CustomerController(val customerService: CustomerService) {
 
     @PostMapping()
     fun create(@RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
-        customerService.create(request.toCustomerModel())
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        val customerSaved = customerService.create(request.toCustomerModel())
+
+        val uri:URI = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(customerSaved.id).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping()
@@ -27,7 +33,7 @@ class CustomerController(val customerService: CustomerService) {
 
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerModel> {
-        val response = customerService.getById(id)
+        val response = customerService.findById(id)
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response)
@@ -35,7 +41,8 @@ class CustomerController(val customerService: CustomerService) {
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Int, @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
-        customerService.update(request.toCustomerModel(id));
+        val customer = customerService.findById(id)
+        customerService.update(request.toCustomerModel(customer));
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build()

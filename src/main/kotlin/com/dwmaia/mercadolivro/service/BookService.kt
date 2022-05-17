@@ -1,6 +1,8 @@
 package com.dwmaia.mercadolivro.service
 
 import com.dwmaia.mercadolivro.model.BookModel
+import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.model.enums.BookStatus
 import com.dwmaia.mercadolivro.repository.BookRepository
 import org.springframework.stereotype.Service
 
@@ -43,6 +45,15 @@ class BookService(val repository: BookRepository) {
         val book = findById(id)
         book.status = "CANCELADO";
         this.update(book)
+    }
+
+    fun deleteByCustomer(customer: CustomerModel) {
+        val books = repository.findByCustomer(customer)
+
+        for (book in books) {
+            book.status = "DELETADO"
+        }
+        repository.saveAll(books)
     }
 
 }

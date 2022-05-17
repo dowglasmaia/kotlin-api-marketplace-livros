@@ -26,7 +26,7 @@ data class BookModel(
         @Column
         var status: String? = null,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "customer_id")
         var customer: CustomerModel? = null
 

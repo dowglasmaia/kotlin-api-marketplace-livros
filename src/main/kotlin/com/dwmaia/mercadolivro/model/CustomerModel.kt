@@ -17,7 +17,10 @@ data class CustomerModel(
         var name: String? = null,
 
         @Column
-        var email: String
+        var email: String,
+
+        @Column
+        var status: String
 
 
 )

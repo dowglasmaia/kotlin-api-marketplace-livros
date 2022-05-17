@@ -21,7 +21,7 @@ class BookController(
 
     @PostMapping()
     fun create(@Valid @RequestBody request: PostBookRequestDTO): ResponseEntity<Void> {
-        val customer = customerService.getById(request.customerId)
+        val customer = customerService.findById(request.customerId)
         bookService.create(request.toBookModel(customer))
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

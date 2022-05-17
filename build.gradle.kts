@@ -26,11 +26,7 @@ dependencies {
 	implementation( "org.flywaydb:flyway-core:8.5.10")
 	implementation ("org.flywaydb:flyway-mysql:8.4.4")
 
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
 	implementation ("org.springframework.boot:spring-boot-starter-validation")
-
-
-
 
 	runtimeOnly("mysql:mysql-connector-java")
 	runtimeOnly("org.postgresql:postgresql")

@@ -6,7 +6,10 @@ import com.dwmaia.mercadolivro.repository.CostumerRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerService(val repository: CostumerRepository) {
+class CustomerService(
+        val repository: CostumerRepository,
+        val bookService: BookService
+) {
 
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
@@ -15,7 +18,7 @@ class CustomerService(val repository: CostumerRepository) {
         return repository.findAll().toList()
     }
 
-    fun getById(id: Int): CustomerModel {
+    fun findById(id: Int): CustomerModel {
         return repository.findById(id).orElseThrow();
     }
 
@@ -26,19 +29,20 @@ class CustomerService(val repository: CostumerRepository) {
         repository.save(request)
     }
 
-    fun create(request: CustomerModel) {
+    fun create(request: CustomerModel): CustomerModel{
         try {
-            repository.save(request);
+            return repository.save(request)
         } catch (e: Exception) {
             throw RuntimeException()
         }
     }
 
     fun delete(id: Int) {
-        if (!repository.existsById(id!!)) {
-            throw Exception()
-        }
-        repository.deleteById(id)
+        val customer = findById(id)
+        bookService.deleteByCustomer(customer)
+        customer.status = "INATIVO"
+
+        update(customer)
     }
 
 }
