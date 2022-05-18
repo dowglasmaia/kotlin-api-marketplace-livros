@@ -2,6 +2,7 @@ package com.dwmaia.mercadolivro.extension
 
 import com.dwmaia.mercadolivro.controller.request.customer.PostCustomerDTO
 import com.dwmaia.mercadolivro.controller.request.customer.PutCustomerDTO
+import com.dwmaia.mercadolivro.controller.response.customer.CustomerResponse
 import com.dwmaia.mercadolivro.model.CustomerModel
 
 /* Class Aux para criar Mapper de Objetos*/
@@ -20,5 +21,14 @@ fun PutCustomerDTO.toCustomerModel(customer: CustomerModel): CustomerModel {
             name = this.name,
             email = this.email,
             status = customer.status
+    )
+}
+
+fun CustomerModel.toResponse(): CustomerResponse {
+    return CustomerResponse(
+            id = this.id!!,
+            name = this.name!!,
+            email = this.email,
+            status = this.status
     )
 }

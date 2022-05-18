@@ -1,14 +1,14 @@
 package com.dwmaia.mercadolivro.controller
 
-import com.dwmaia.mercadolivro.controller.request.customer.PostCustomerDTO
-import com.dwmaia.mercadolivro.controller.request.customer.PutCustomerDTO
-import com.dwmaia.mercadolivro.extension.toCustomerModel
-import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.controller.response.customer.CustomerResponse
+import com.dwmaia.mercadolivro.controller.request.customer.*
+import com.dwmaia.mercadolivro.extension.*
 import com.dwmaia.mercadolivro.service.CustomerService
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+
 import org.springframework.web.bind.annotation.*
+import org.springframework.http.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+
 import java.net.URI
 
 @RestController
@@ -19,21 +19,21 @@ class CustomerController(val customerService: CustomerService) {
     fun create(@RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
         val customerSaved = customerService.create(request.toCustomerModel())
 
-        val uri:URI = ServletUriComponentsBuilder.fromCurrentRequest()
+        val uri: URI = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(customerSaved.id).toUri();
 
         return ResponseEntity.created(uri).build();
     }
 
     @GetMapping()
-    fun getAll(@RequestParam name: String?): ResponseEntity<List<CustomerModel>> {
-        val resopnse = customerService.getAll(name)
+    fun getAll(@RequestParam name: String?): ResponseEntity<List<CustomerResponse>> {
+        val resopnse = customerService.getAll(name).map { it.toResponse() }
         return ResponseEntity.status(HttpStatus.OK).body(resopnse);
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerModel> {
-        val response = customerService.findById(id)
+    fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerResponse> {
+        val response = customerService.findById(id).toResponse()
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response)

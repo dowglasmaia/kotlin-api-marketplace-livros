@@ -16,7 +16,7 @@ data class CustomerModel(
         @Column
         var name: String? = null,
 
-        @Column
+        @Column(unique = true)
         var email: String,
 
         @Column
