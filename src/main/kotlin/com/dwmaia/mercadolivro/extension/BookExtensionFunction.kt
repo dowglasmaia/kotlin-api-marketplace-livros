@@ -5,7 +5,6 @@ import com.dwmaia.mercadolivro.controller.request.book.PutBookRequestDTO
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
 
-
 fun PostBookRequestDTO.toBookModel(customer: CustomerModel): BookModel {
     return BookModel(
             name = this.name,
@@ -14,6 +13,7 @@ fun PostBookRequestDTO.toBookModel(customer: CustomerModel): BookModel {
             customer = customer
     )
 }
+
 
 fun PutBookRequestDTO.toBookModel(previousValue:BookModel): BookModel {
     return BookModel(

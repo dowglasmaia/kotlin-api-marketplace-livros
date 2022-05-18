@@ -23,11 +23,27 @@ data class BookModel(
         @NumberFormat(style = CURRENCY, pattern = "#,##0.00")
         var price: BigDecimal,
 
-        @Column
-        var status: String? = null,
-
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "customer_id")
         var customer: CustomerModel? = null
 
-)
+) {
+    @Column
+    var status: String? = null
+        set(value) {
+            if (field == "CANCELADO" || field == "DELETADO") {
+                throw Exception("Não é possivel alterar um livro com status ${field}")
+            }
+            field = value
+        }
+
+    constructor(
+            id: Int? = null,
+            name: String,
+            price: BigDecimal,
+            customer: CustomerModel? = null,
+            status: String?
+    ) : this(id, name, price, customer) {
+        this.status = status
+    }
+}
