@@ -5,9 +5,13 @@ import com.dwmaia.mercadolivro.extension.*
 import com.dwmaia.mercadolivro.controller.response.book.BookModelResponse
 import com.dwmaia.mercadolivro.service.BookService
 import com.dwmaia.mercadolivro.service.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
+
 
 import javax.validation.Valid
 
@@ -26,7 +30,7 @@ class BookController(
     }
 
     @PutMapping("/{id}")
-    fun update( @PathVariable id: Int, @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
+    fun update(@PathVariable id: Int, @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
         val book = bookService.findById(id)
         bookService.update(request.toBookModel(book))
         return ResponseEntity.status(HttpStatus.OK).build()
@@ -39,14 +43,20 @@ class BookController(
     }
 
     @GetMapping()
-    fun getAll(@RequestParam name: String?): ResponseEntity<List<BookModelResponse>> {
-        val list = bookService.findAll(name).map { it.toResponse() }
+    fun getAll(
+            @RequestParam name: String?,
+            @PageableDefault(page = 0, size = 10) pageable: Pageable
+    ): ResponseEntity<Page<BookModelResponse>> {
+        val list = bookService.findAll(name, pageable).map { it.toResponse() }
+
         return ResponseEntity.status(HttpStatus.OK).body(list)
     }
 
     @GetMapping("/status")
-    fun getAllByStatus(@RequestParam status: String): ResponseEntity<List<BookModelResponse>> {
-        val list = bookService.findAllByStatus(status).map { it.toResponse() }
+    fun getAllByStatus(@RequestParam status: String,
+                       @PageableDefault(page = 0, size = 10) pageable: Pageable
+    ): ResponseEntity<Page<BookModelResponse>> {
+        val list = bookService.findAllByStatus( status ,pageable ).map { it.toResponse() }
         return ResponseEntity.status(HttpStatus.OK).body(list)
     }
 

@@ -2,9 +2,11 @@ package com.dwmaia.mercadolivro.service
 
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
-import com.dwmaia.mercadolivro.model.enums.BookStatus
 import com.dwmaia.mercadolivro.repository.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+
 
 @Service
 class BookService(val repository: BookRepository) {
@@ -29,16 +31,16 @@ class BookService(val repository: BookRepository) {
         return repository.findById(id).orElseThrow()
     }
 
-    fun findAll(name: String?): List<BookModel> {
+    fun findAll(name: String?, pageable: Pageable): Page<BookModel> {
         name?.let {
-            return repository.findByNameContaining(name)
+            return repository.findByNameContaining(name,pageable)
         }
-        return repository.findAll().toList();
+        return repository.findAll(pageable)
     }
 
-    fun findAllByStatus(status: String): List<BookModel> {
-        val list = repository.findByStatus(status).toList();
-        return list;
+    fun findAllByStatus(status: String, pageable: Pageable): Page<BookModel> {
+        val list = repository.findByStatus(status,pageable)
+        return list
     }
 
     fun delete(id: Int) {
