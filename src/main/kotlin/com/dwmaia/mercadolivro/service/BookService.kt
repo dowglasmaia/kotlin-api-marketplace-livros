@@ -28,7 +28,9 @@ class BookService(val repository: BookRepository) {
     }
 
     fun findById(id: Int): BookModel {
-        return repository.findById(id).orElseThrow()
+        return repository.findById(id).orElseThrow{
+            Exception("Não encontrado para o id ${id}")
+        }
     }
 
     fun findAll(name: String?, pageable: Pageable): Page<BookModel> {
