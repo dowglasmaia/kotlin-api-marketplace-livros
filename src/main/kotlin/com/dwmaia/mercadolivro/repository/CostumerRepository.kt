@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CostumerRepository : CrudRepository<CustomerModel,Int>  {
-
     fun findByNameContaining(name:String):List<CustomerModel>
 
 }

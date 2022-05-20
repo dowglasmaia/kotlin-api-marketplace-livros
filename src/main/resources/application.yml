@@ -10,3 +10,5 @@ spring:
     url: jdbc:mysql://localhost:3306/db_mercadolivro?createDatabaseIfNotExist=true
     username: root
     password: 2522
+  jackson:
+    default-property-inclusion: non_null #remove o 'null' dos response

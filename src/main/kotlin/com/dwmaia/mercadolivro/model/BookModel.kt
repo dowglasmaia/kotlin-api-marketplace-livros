@@ -1,5 +1,7 @@
 package com.dwmaia.mercadolivro.model
 
+import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
+import com.dwmaia.mercadolivro.controller.exception.enums.Erros
 import org.springframework.format.annotation.NumberFormat
 import org.springframework.format.annotation.NumberFormat.Style.CURRENCY
 import java.math.BigDecimal
@@ -32,7 +34,7 @@ data class BookModel(
     var status: String? = null
         set(value) {
             if (field == "CANCELADO" || field == "DELETADO") {
-                throw Exception("Não é possivel alterar um livro com status ${field}")
+                throw ApiBadRequestException(Erros.ML1004.message.format(field), Erros.ML1004.statusCode)
             }
             field = value
         }

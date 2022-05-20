@@ -11,12 +11,23 @@ import org.springframework.web.context.request.WebRequest
 @ControllerAdvice
 class HandlerException {
 
-    @ExceptionHandler(Exception::class)
-    fun handlerException(ex: Exception, request: WebRequest): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(ApiNotFoundException::class)
+    fun handlerNotFoundException(ex: ApiNotFoundException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.message ?: "",
+                internalCode = ex.errorCode,
+                erros = null
+        )
+        return ResponseEntity(error, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(ApiBadRequestException::class)
+    fun handlerBadRequestException(ex: ApiBadRequestException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.message ?: "",
-                internalCode = "0001",
+                internalCode = ex.errorCode,
                 erros = null
         )
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)

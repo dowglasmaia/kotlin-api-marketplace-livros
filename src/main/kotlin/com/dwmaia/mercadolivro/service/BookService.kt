@@ -1,5 +1,8 @@
 package com.dwmaia.mercadolivro.service
 
+import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
+import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
+import com.dwmaia.mercadolivro.controller.exception.enums.Erros
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
 import com.dwmaia.mercadolivro.repository.BookRepository
@@ -15,7 +18,7 @@ class BookService(val repository: BookRepository) {
         try {
             repository.save(book)
         } catch (e: Exception) {
-            throw RuntimeException(e)
+            throw ApiBadRequestException(Erros.ML1002.message, Erros.ML1002.statusCode)
         }
     }
 
@@ -23,25 +26,25 @@ class BookService(val repository: BookRepository) {
         try {
             repository.save(book)
         } catch (e: Exception) {
-            throw RuntimeException(e)
+            throw ApiBadRequestException(Erros.ML1003.message, Erros.ML1003.statusCode)
         }
     }
 
     fun findById(id: Int): BookModel {
-        return repository.findById(id).orElseThrow{
-            Exception("Não encontrado para o id ${id}")
+        return repository.findById(id).orElseThrow {
+            ApiNotFoundException(Erros.ML1001.message.format(id), Erros.ML1001.statusCode)
         }
     }
 
     fun findAll(name: String?, pageable: Pageable): Page<BookModel> {
         name?.let {
-            return repository.findByNameContaining(name,pageable)
+            return repository.findByNameContaining(name, pageable)
         }
         return repository.findAll(pageable)
     }
 
     fun findAllByStatus(status: String, pageable: Pageable): Page<BookModel> {
-        val list = repository.findByStatus(status,pageable)
+        val list = repository.findByStatus(status, pageable)
         return list
     }
 
