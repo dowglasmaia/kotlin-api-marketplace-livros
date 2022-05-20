@@ -1,6 +1,7 @@
 package com.dwmaia.mercadolivro.controller.response.book
 
 import com.dwmaia.mercadolivro.model.CustomerModel
+import org.springframework.format.annotation.NumberFormat
 import java.math.BigDecimal
 
 data class BookModelResponse(

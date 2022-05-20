@@ -3,7 +3,7 @@ package com.dwmaia.mercadolivro.service
 
 import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
 import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
-import com.dwmaia.mercadolivro.controller.exception.enums.Erros
+import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.CustomerModel
 import com.dwmaia.mercadolivro.repository.CostumerRepository
 import org.springframework.stereotype.Service
@@ -23,7 +23,7 @@ class CustomerService(
 
     fun findById(id: Int): CustomerModel {
         return repository.findById(id).orElseThrow {
-            ApiNotFoundException(Erros.ML2004.message.format(id), Erros.ML2004.statusCode)
+            ApiNotFoundException(EnumErros.ML2004.message.format(id), EnumErros.ML2004.statusCode)
         }
     }
 
@@ -37,7 +37,7 @@ class CustomerService(
         try {
             return repository.save(request)
         } catch (e: Exception) {
-            throw ApiBadRequestException(Erros.ML2005.message, Erros.ML2005.statusCode)
+            throw ApiBadRequestException(EnumErros.ML2005.message, EnumErros.ML2005.statusCode)
         }
     }
 

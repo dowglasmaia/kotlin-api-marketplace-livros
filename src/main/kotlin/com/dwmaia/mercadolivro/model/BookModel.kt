@@ -1,13 +1,9 @@
 package com.dwmaia.mercadolivro.model
 
 import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
-import com.dwmaia.mercadolivro.controller.exception.enums.Erros
-import org.springframework.format.annotation.NumberFormat
-import org.springframework.format.annotation.NumberFormat.Style.CURRENCY
+import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
 import java.math.BigDecimal
 import javax.persistence.*
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 
 
 @Entity(name = "book")
@@ -17,12 +13,9 @@ data class BookModel(
         var id: Int? = null,
 
         @Column
-        @NotEmpty(message = "The Name Of The Book Is Required")
         var name: String,
 
         @Column
-        @NotNull
-        @NumberFormat(style = CURRENCY, pattern = "#,##0.00")
         var price: BigDecimal,
 
         @ManyToOne(fetch = FetchType.LAZY)
@@ -34,7 +27,7 @@ data class BookModel(
     var status: String? = null
         set(value) {
             if (field == "CANCELADO" || field == "DELETADO") {
-                throw ApiBadRequestException(Erros.ML1004.message.format(field), Erros.ML1004.statusCode)
+                throw ApiBadRequestException(EnumErros.ML1004.message.format(field), EnumErros.ML1004.statusCode)
             }
             field = value
         }

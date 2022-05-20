@@ -1,6 +1,8 @@
 package com.dwmaia.mercadolivro.controller.exception.enums
 
-enum class Erros(val statusCode:String, val message: String) {
+enum class EnumErros(val statusCode:String, val message: String) {
+    ML0001 ("ML_0001","Invalid Request"),
+
     ML1001 ("ML_1001","Book [%s] not existe"),
     ML1002 ("ML_1002","Fails to try to save the Book"),
     ML1003 ("ML_1003","Fails to try to updated the Customer"),

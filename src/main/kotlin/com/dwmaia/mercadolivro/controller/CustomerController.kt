@@ -10,13 +10,14 @@ import org.springframework.http.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 
 import java.net.URI
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("custumers")
 class CustomerController(val customerService: CustomerService) {
 
     @PostMapping()
-    fun create(@RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
+    fun create(@Valid @RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
         val customerSaved = customerService.create(request.toCustomerModel())
 
         val uri: URI = ServletUriComponentsBuilder.fromCurrentRequest()

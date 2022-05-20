@@ -2,7 +2,7 @@ package com.dwmaia.mercadolivro.service
 
 import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
 import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
-import com.dwmaia.mercadolivro.controller.exception.enums.Erros
+import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
 import com.dwmaia.mercadolivro.repository.BookRepository
@@ -18,7 +18,7 @@ class BookService(val repository: BookRepository) {
         try {
             repository.save(book)
         } catch (e: Exception) {
-            throw ApiBadRequestException(Erros.ML1002.message, Erros.ML1002.statusCode)
+            throw ApiBadRequestException(EnumErros.ML1002.message, EnumErros.ML1002.statusCode)
         }
     }
 
@@ -26,13 +26,13 @@ class BookService(val repository: BookRepository) {
         try {
             repository.save(book)
         } catch (e: Exception) {
-            throw ApiBadRequestException(Erros.ML1003.message, Erros.ML1003.statusCode)
+            throw ApiBadRequestException(EnumErros.ML1003.message, EnumErros.ML1003.statusCode)
         }
     }
 
     fun findById(id: Int): BookModel {
         return repository.findById(id).orElseThrow {
-            ApiNotFoundException(Erros.ML1001.message.format(id), Erros.ML1001.statusCode)
+            ApiNotFoundException(EnumErros.ML1001.message.format(id), EnumErros.ML1001.statusCode)
         }
     }
 
