@@ -49,4 +49,8 @@ class CustomerService(
         update(customer)
     }
 
+    fun emailAvaliable(value: String): Boolean {
+        return !repository.existsByEmail(value)
+    }
+
 }
