@@ -30,7 +30,7 @@ class BookController(
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Int, @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
+    fun update(@PathVariable id: Int,@Valid @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
         val book = bookService.findById(id)
         bookService.update(request.toBookModel(book))
         return ResponseEntity.status(HttpStatus.OK).build()

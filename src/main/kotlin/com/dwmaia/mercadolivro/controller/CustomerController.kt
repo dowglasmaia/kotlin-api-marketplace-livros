@@ -41,7 +41,7 @@ class CustomerController(val customerService: CustomerService) {
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Int, @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
+    fun update(@PathVariable id: Int,@Valid @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
         val customer = customerService.findById(id)
         customerService.update(request.toCustomerModel(customer));
         return ResponseEntity
