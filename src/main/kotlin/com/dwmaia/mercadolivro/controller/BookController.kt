@@ -1,18 +1,19 @@
 package com.dwmaia.mercadolivro.controller
 
-import com.dwmaia.mercadolivro.controller.request.book.*
-import com.dwmaia.mercadolivro.extension.*
+
+import com.dwmaia.mercadolivro.controller.request.book.PostBookRequestDTO
+import com.dwmaia.mercadolivro.controller.request.book.PutBookRequestDTO
 import com.dwmaia.mercadolivro.controller.response.book.BookModelResponse
+import com.dwmaia.mercadolivro.extension.toBookModel
+import com.dwmaia.mercadolivro.extension.toResponse
 import com.dwmaia.mercadolivro.service.BookService
 import com.dwmaia.mercadolivro.service.CustomerService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
-
-import org.springframework.http.*
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-
-
 import javax.validation.Valid
 
 @RestController
@@ -21,7 +22,6 @@ class BookController(
         val bookService: BookService,
         val customerService: CustomerService
 ) {
-
     @PostMapping()
     fun create(@Valid @RequestBody request: PostBookRequestDTO): ResponseEntity<Void> {
         val customer = customerService.findById(request.customerId)
@@ -44,7 +44,7 @@ class BookController(
 
     @GetMapping()
     fun getAll(
-            @RequestParam name: String?,
+            @RequestParam("name", required = false) name: String?,
             @PageableDefault(page = 0, size = 10) pageable: Pageable
     ): ResponseEntity<Page<BookModelResponse>> {
         val list = bookService.findAll(name, pageable).map { it.toResponse() }

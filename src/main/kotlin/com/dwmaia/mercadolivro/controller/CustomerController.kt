@@ -27,7 +27,7 @@ class CustomerController(val customerService: CustomerService) {
     }
 
     @GetMapping()
-    fun getAll(@RequestParam name: String?): ResponseEntity<List<CustomerResponse>> {
+    fun getAll(@RequestParam ("name", required = false) name: String?): ResponseEntity<List<CustomerResponse>> {
         val resopnse = customerService.getAll(name).map { it.toResponse() }
         return ResponseEntity.status(HttpStatus.OK).body(resopnse);
     }

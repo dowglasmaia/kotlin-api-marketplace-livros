@@ -8,4 +8,5 @@
 * [Flyway Documentation - Migrations](https://flywaydb.org/documentation/concepts/migrations#sql-based-migrations#syntax)
 * [Flyway Documentation - MySQL](https://flywaydb.org/documentation/database/mysql)
 * [MVN - Repository](https://mvnrepository.com/)
+* [Blog Swagger Documentation ](https://blog.mestwin.net/swagger-documentation-for-your-spring-boot-api-with-springfox/)
 

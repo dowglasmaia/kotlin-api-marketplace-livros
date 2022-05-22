@@ -1,6 +1,9 @@
 spring:
   application:
     name: api-book
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,3 +15,10 @@ spring:
     password: 2522
   jackson:
     default-property-inclusion: non_null #remove o 'null' dos response
+
+
+#springdoc:
+#  api-docs:
+#    path=/api-docs:
+#  swagger-ui:
+#    path=/swagger-ui.html:
