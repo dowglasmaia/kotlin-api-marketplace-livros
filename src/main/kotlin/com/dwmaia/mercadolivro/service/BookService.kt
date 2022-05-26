@@ -63,4 +63,8 @@ class BookService(val repository: BookRepository) {
         repository.saveAll(books)
     }
 
+    fun findAllByIds(bookIds: Set<Int>): List<BookModel> {
+        return repository.findAllById(bookIds).toList()
+    }
+
 }
