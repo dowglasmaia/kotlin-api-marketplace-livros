@@ -13,9 +13,15 @@ class PurchaseService(
 ) {
 
     fun create(purchaseModel: PurchaseModel): PurchaseModel {
-        return purcharseRepository.save(purchaseModel)
+        val purchaseSavad =  purcharseRepository.save(purchaseModel)
 
-        event.publishEvent(PurchaseEvent(this, purchaseModel))
+        event.publishEvent(PurchaseEvent(this, purchaseSavad))
+
+        return purchaseSavad;
+    }
+
+    fun update(purchaseModel: PurchaseModel) {
+        purcharseRepository.save(purchaseModel)
     }
 
 }
