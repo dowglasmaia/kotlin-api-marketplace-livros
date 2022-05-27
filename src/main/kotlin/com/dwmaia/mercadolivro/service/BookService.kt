@@ -5,6 +5,7 @@ import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
 import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.model.enums.BookStatus
 import com.dwmaia.mercadolivro.repository.BookRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -65,6 +66,13 @@ class BookService(val repository: BookRepository) {
 
     fun findAllByIds(bookIds: Set<Int>): List<BookModel> {
         return repository.findAllById(bookIds).toList()
+    }
+
+    fun purchase(books: MutableList<BookModel>) {
+        books.map {
+            it.status = "VENDIDO"
+        }
+        repository.saveAll(books)
     }
 
 }

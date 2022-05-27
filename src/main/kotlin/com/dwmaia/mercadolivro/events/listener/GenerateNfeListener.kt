@@ -1,5 +1,6 @@
-package com.dwmaia.mercadolivro.events
+package com.dwmaia.mercadolivro.events.listener
 
+import com.dwmaia.mercadolivro.events.PurchaseEvent
 import com.dwmaia.mercadolivro.service.PurchaseService
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
