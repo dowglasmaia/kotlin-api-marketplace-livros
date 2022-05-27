@@ -1,10 +1,7 @@
 package com.dwmaia.mercadolivro.model
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.dwmaia.mercadolivro.model.enums.Roles
+import javax.persistence.*
 
 
 @Entity(name = "customer")
@@ -20,7 +17,18 @@ data class CustomerModel(
         var email: String,
 
         @Column
-        var status: String
+        // @Enumerated(EnumType.STRING)
+        var status: String,
+
+        @Column
+        var password: String,
+
+        @Column(name = "role")
+        @Enumerated(EnumType.STRING)
+        @ElementCollection(targetClass = Roles::class, fetch = FetchType.EAGER)
+        @CollectionTable(name = "customer_roles", joinColumns = [JoinColumn(name = "customer_id")])
+        var roles: Set<Roles> = setOf()
+
 
 
 )

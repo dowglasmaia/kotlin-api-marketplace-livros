@@ -13,5 +13,8 @@ data class PostCustomerDTO(
         @field:NotEmpty(message = "The Email Is Required")
         @field:Email
         @EmailAvaliable
-        var email: String
+        var email: String,
+
+        @field:NotBlank(message = "Tha Password is requerid")
+        var password: String
 )

@@ -11,7 +11,8 @@ fun PostCustomerDTO.toCustomerModel(): CustomerModel {
     return CustomerModel(
             name = name,
             email = email,
-            status = "ATIVO"
+            status = "ATIVO",
+            password = this.password
     )
 }
 
@@ -20,7 +21,8 @@ fun PutCustomerDTO.toCustomerModel(customer: CustomerModel): CustomerModel {
             id = customer.id,
             name = this.name,
             email = this.email,
-            status = customer.status
+            status = customer.status,
+            password = customer.password
     )
 }
 

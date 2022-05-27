@@ -5,6 +5,7 @@ import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
 import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
 import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.model.enums.Roles
 import com.dwmaia.mercadolivro.repository.CostumerRepository
 import org.springframework.stereotype.Service
 
@@ -35,7 +36,9 @@ class CustomerService(
 
     fun create(request: CustomerModel): CustomerModel {
         try {
-            return repository.save(request)
+            val requestCopy = request.copy(roles = setOf(Roles.CUSTOMER))
+
+            return repository.save(requestCopy)
         } catch (e: Exception) {
             throw ApiBadRequestException(EnumErros.ML2005.message, EnumErros.ML2005.statusCode)
         }
