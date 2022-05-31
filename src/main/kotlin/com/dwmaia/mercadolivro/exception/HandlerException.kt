@@ -1,6 +1,6 @@
-package com.dwmaia.mercadolivro.controller.exception
+package com.dwmaia.mercadolivro.exception
 
-import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
+import com.dwmaia.mercadolivro.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.controller.response.error.ErrorResponse
 import com.dwmaia.mercadolivro.controller.response.error.FieldErrorResponse
 import org.springframework.http.HttpStatus

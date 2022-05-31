@@ -1,4 +1,4 @@
-package com.dwmaia.mercadolivro.controller.exception.enums
+package com.dwmaia.mercadolivro.exception.enums
 
 enum class EnumErros(val statusCode:String, val message: String) {
     ML0001 ("ML_0001","Invalid Request"),

@@ -1,6 +1,6 @@
 package com.dwmaia.mercadolivro.model
 
-import com.dwmaia.mercadolivro.model.enums.CostumerStatus
+import com.dwmaia.mercadolivro.model.enums.CustomerStatus
 import com.dwmaia.mercadolivro.model.enums.Roles
 import javax.persistence.*
 
@@ -19,7 +19,7 @@ data class CustomerModel(
 
         @Column
         @Enumerated(EnumType.STRING)
-        var status: CostumerStatus,
+        var status: CustomerStatus,
 
         @Column
         var password: String,

@@ -1,8 +1,8 @@
 package com.dwmaia.mercadolivro.service
 
-import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
-import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
-import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
+import com.dwmaia.mercadolivro.exception.ApiBadRequestException
+import com.dwmaia.mercadolivro.exception.ApiNotFoundException
+import com.dwmaia.mercadolivro.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
 import com.dwmaia.mercadolivro.model.enums.BookStatus

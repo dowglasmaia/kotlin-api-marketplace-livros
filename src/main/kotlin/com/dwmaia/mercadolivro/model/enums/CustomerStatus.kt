@@ -1,6 +1,6 @@
 package com.dwmaia.mercadolivro.model.enums
 
-enum class CostumerStatus{
+enum class CustomerStatus{
     ATIVO,
     INATIVO
 }

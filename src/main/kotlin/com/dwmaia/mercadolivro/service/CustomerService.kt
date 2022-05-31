@@ -1,11 +1,11 @@
 package com.dwmaia.mercadolivro.service
 
 
-import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
-import com.dwmaia.mercadolivro.controller.exception.ApiNotFoundException
-import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
+import com.dwmaia.mercadolivro.exception.ApiBadRequestException
+import com.dwmaia.mercadolivro.exception.ApiNotFoundException
+import com.dwmaia.mercadolivro.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.CustomerModel
-import com.dwmaia.mercadolivro.model.enums.CostumerStatus
+import com.dwmaia.mercadolivro.model.enums.CustomerStatus
 import com.dwmaia.mercadolivro.model.enums.Roles
 import com.dwmaia.mercadolivro.repository.CostumerRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -53,13 +53,17 @@ class CustomerService(
     fun delete(id: Int) {
         val customer = findById(id)
         bookService.deleteByCustomer(customer)
-        customer.status = CostumerStatus.INATIVO
+        customer.status = CustomerStatus.INATIVO
 
         update(customer)
     }
 
     fun emailAvaliable(value: String): Boolean {
         return !repository.existsByEmail(value)
+    }
+
+    fun findByEmail(email: String):CustomerModel? {
+        return repository.findByEmail(email)
     }
 
 }

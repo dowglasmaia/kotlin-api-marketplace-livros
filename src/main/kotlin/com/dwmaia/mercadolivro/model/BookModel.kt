@@ -1,7 +1,7 @@
 package com.dwmaia.mercadolivro.model
 
-import com.dwmaia.mercadolivro.controller.exception.ApiBadRequestException
-import com.dwmaia.mercadolivro.controller.exception.enums.EnumErros
+import com.dwmaia.mercadolivro.exception.ApiBadRequestException
+import com.dwmaia.mercadolivro.exception.enums.EnumErros
 import com.dwmaia.mercadolivro.model.enums.BookStatus
 import java.math.BigDecimal
 import javax.persistence.*
