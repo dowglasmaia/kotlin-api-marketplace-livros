@@ -19,8 +19,8 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("books")
 class BookController(
-        val bookService: BookService,
-        val customerService: CustomerService
+        private val bookService: BookService,
+        private val customerService: CustomerService
 ) {
     @PostMapping()
     fun create(@Valid @RequestBody request: PostBookRequestDTO): ResponseEntity<Void> {
@@ -30,7 +30,7 @@ class BookController(
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Int,@Valid @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
+    fun update(@PathVariable id: Int, @Valid @RequestBody request: PutBookRequestDTO): ResponseEntity<Void> {
         val book = bookService.findById(id)
         bookService.update(request.toBookModel(book))
         return ResponseEntity.status(HttpStatus.OK).build()
@@ -56,7 +56,7 @@ class BookController(
     fun getAllByStatus(@RequestParam status: String,
                        @PageableDefault(page = 0, size = 10) pageable: Pageable
     ): ResponseEntity<Page<BookModelResponse>> {
-        val list = bookService.findAllByStatus( status ,pageable ).map { it.toResponse() }
+        val list = bookService.findAllByStatus(status, pageable).map { it.toResponse() }
         return ResponseEntity.status(HttpStatus.OK).body(list)
     }
 

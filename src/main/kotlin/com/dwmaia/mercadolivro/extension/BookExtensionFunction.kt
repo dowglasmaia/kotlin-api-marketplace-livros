@@ -5,12 +5,13 @@ import com.dwmaia.mercadolivro.controller.request.book.PutBookRequestDTO
 import com.dwmaia.mercadolivro.controller.response.book.BookModelResponse
 import com.dwmaia.mercadolivro.model.BookModel
 import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.model.enums.BookStatus
 
 fun PostBookRequestDTO.toBookModel(customer: CustomerModel): BookModel {
     return BookModel(
             name = this.name,
             price = this.price,
-            status = "ATIVO",
+            status = BookStatus.ATIVO,
             customer = customer
     )
 }

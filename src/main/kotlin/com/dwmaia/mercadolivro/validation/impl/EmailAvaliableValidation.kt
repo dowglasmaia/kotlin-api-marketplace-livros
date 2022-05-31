@@ -5,10 +5,12 @@ import com.dwmaia.mercadolivro.validation.annotation.EmailAvaliable
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 
-class EmailAvaliableValidation(val customerService: CustomerService):ConstraintValidator<EmailAvaliable, String> {
+class EmailAvaliableValidation(
+        private val customerService: CustomerService
+) : ConstraintValidator<EmailAvaliable, String> {
 
     override fun isValid(value: String?, context: ConstraintValidatorContext?): Boolean {
-        if(value.isNullOrEmpty()){
+        if (value.isNullOrEmpty()) {
             return false
         }
         return customerService.emailAvaliable(value);

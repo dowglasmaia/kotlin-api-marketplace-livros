@@ -1,20 +1,23 @@
 package com.dwmaia.mercadolivro.controller
 
+import com.dwmaia.mercadolivro.controller.request.customer.PostCustomerDTO
+import com.dwmaia.mercadolivro.controller.request.customer.PutCustomerDTO
 import com.dwmaia.mercadolivro.controller.response.customer.CustomerResponse
-import com.dwmaia.mercadolivro.controller.request.customer.*
-import com.dwmaia.mercadolivro.extension.*
+import com.dwmaia.mercadolivro.extension.toCustomerModel
+import com.dwmaia.mercadolivro.extension.toResponse
 import com.dwmaia.mercadolivro.service.CustomerService
-
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.http.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
-
 import java.net.URI
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("custumers")
-class CustomerController(val customerService: CustomerService) {
+class CustomerController(
+        private val customerService: CustomerService
+) {
 
     @PostMapping()
     fun create(@Valid @RequestBody request: PostCustomerDTO): ResponseEntity<Void> {
@@ -27,7 +30,7 @@ class CustomerController(val customerService: CustomerService) {
     }
 
     @GetMapping()
-    fun getAll(@RequestParam ("name", required = false) name: String?): ResponseEntity<List<CustomerResponse>> {
+    fun getAll(@RequestParam("name", required = false) name: String?): ResponseEntity<List<CustomerResponse>> {
         val resopnse = customerService.getAll(name).map { it.toResponse() }
         return ResponseEntity.status(HttpStatus.OK).body(resopnse);
     }
@@ -41,7 +44,7 @@ class CustomerController(val customerService: CustomerService) {
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Int,@Valid @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
+    fun update(@PathVariable id: Int, @Valid @RequestBody request: PutCustomerDTO): ResponseEntity<Void> {
         val customer = customerService.findById(id)
         customerService.update(request.toCustomerModel(customer));
         return ResponseEntity

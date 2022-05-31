@@ -4,6 +4,7 @@ import com.dwmaia.mercadolivro.controller.request.customer.PostCustomerDTO
 import com.dwmaia.mercadolivro.controller.request.customer.PutCustomerDTO
 import com.dwmaia.mercadolivro.controller.response.customer.CustomerResponse
 import com.dwmaia.mercadolivro.model.CustomerModel
+import com.dwmaia.mercadolivro.model.enums.CostumerStatus
 
 /* Class Aux para criar Mapper de Objetos*/
 
@@ -11,7 +12,7 @@ fun PostCustomerDTO.toCustomerModel(): CustomerModel {
     return CustomerModel(
             name = name,
             email = email,
-            status = "ATIVO",
+            status = CostumerStatus.ATIVO,
             password = this.password
     )
 }
