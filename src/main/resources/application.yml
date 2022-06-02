@@ -15,6 +15,9 @@ spring:
     password: 2522
   jackson:
     default-property-inclusion: non_null #remove o 'null' dos response
+jwt:
+  secret: e566907c-b086-4c14-aca8-a769a4403ba9
+  expiration: 999999
 
 
 #springdoc:

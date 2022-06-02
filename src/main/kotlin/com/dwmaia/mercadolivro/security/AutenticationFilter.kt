@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse
 
 class AutenticationFilter(
         authenticationManager: AuthenticationManager,
-        private val customerRepository: CostumerRepository
+        private val customerRepository: CostumerRepository,
+        private val jwtUtil: JwtUtil
 ) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest,
@@ -38,7 +39,8 @@ class AutenticationFilter(
                                           authResult: Authentication
     ) {
         val id = (authResult.principal as UserCustomerDetails).id
-        response.addHeader("Authorization", "123456")
+        val token = jwtUtil.generateToken(id)
+        response.addHeader("Authorization", "Bearer $token")
     }
 
 }

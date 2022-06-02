@@ -9,4 +9,5 @@
 * [Flyway Documentation - MySQL](https://flywaydb.org/documentation/database/mysql)
 * [MVN - Repository](https://mvnrepository.com/)
 * [Blog Swagger Documentation ](https://blog.mestwin.net/swagger-documentation-for-your-spring-boot-api-with-springfox/)
+* [UUID Generator](https://www.uuidgenerator.net/)
 

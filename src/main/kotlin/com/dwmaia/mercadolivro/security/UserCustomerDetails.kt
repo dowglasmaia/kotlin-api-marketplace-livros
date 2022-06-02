@@ -7,7 +7,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class UserCustomerDetails(val customerModel: CustomerModel) : UserDetails {
-    val id = customerModel.id
+
+    val id: Int = customerModel.id!!
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = customerModel.roles
             .map { SimpleGrantedAuthority(it.descripton) }.toMutableList()
