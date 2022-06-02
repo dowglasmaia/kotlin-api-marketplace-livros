@@ -3,7 +3,6 @@ package com.dwmaia.mercadolivro.security
 import com.dwmaia.mercadolivro.controller.request.login.LoginRequest
 import com.dwmaia.mercadolivro.exception.AuthenticationException
 import com.dwmaia.mercadolivro.repository.CostumerRepository
-import com.dwmaia.mercadolivro.service.CustomerService
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -13,7 +12,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class AutenticationFilter(
+class AuthenticationFilter(
         authenticationManager: AuthenticationManager,
         private val customerRepository: CostumerRepository,
         private val jwtUtil: JwtUtil
