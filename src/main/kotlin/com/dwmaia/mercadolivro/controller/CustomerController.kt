@@ -6,6 +6,7 @@ import com.dwmaia.mercadolivro.controller.response.customer.CustomerResponse
 import com.dwmaia.mercadolivro.extension.toCustomerModel
 import com.dwmaia.mercadolivro.extension.toResponse
 import com.dwmaia.mercadolivro.service.CustomerService
+import com.dwmaia.mercadolivro.validation.annotation.UserCanOnlyAccess
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -37,7 +38,7 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == authentication.principal.id") // o ID so tem acesso a dados do seu propio ID.
+    @UserCanOnlyAccess
     fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerResponse> {
         val response = customerService.findById(id).toResponse()
         return ResponseEntity
