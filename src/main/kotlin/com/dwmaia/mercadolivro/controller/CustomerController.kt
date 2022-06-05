@@ -8,6 +8,7 @@ import com.dwmaia.mercadolivro.extension.toResponse
 import com.dwmaia.mercadolivro.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.net.URI
@@ -36,6 +37,7 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || #id == authentication.principal.id") // o ID so tem acesso a dados do seu propio ID.
     fun getCustomer(@PathVariable id: Int): ResponseEntity<CustomerResponse> {
         val response = customerService.findById(id).toResponse()
         return ResponseEntity
