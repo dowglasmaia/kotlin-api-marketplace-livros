@@ -1,5 +1,6 @@
 package com.dwmaia.mercadolivro.config
 
+import com.dwmaia.mercadolivro.model.enums.Roles
 import com.dwmaia.mercadolivro.repository.CostumerRepository
 import com.dwmaia.mercadolivro.security.AuthenticationFilter
 import com.dwmaia.mercadolivro.security.AuthorizationFilter
@@ -27,11 +28,15 @@ class SecurityConfig(
     private val PUBLIC_POST_MATCHERS = arrayOf(
             "/custumers"
     )
+    private val ADMIN_MATCHERS = arrayOf(
+            "/report/**"
+    )
 
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable()
         http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
+                .antMatchers(HttpMethod.POST, *ADMIN_MATCHERS).hasAnyAuthority(Roles.ADMIN.descripton)
                 .anyRequest().authenticated()
 
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
